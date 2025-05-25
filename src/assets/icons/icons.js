@@ -1,4 +1,4 @@
-export {default as FolderIcon} from './Folder-open.svg';
+export {default as FolderIcon} from './Folder-open2.svg';
 export {default as FolderFocusIcon} from './Folder-open2.svg';
 export {default as EyeIcon} from './eye2.svg';
 export {default as EyeFocusIcon} from './eye.svg';
