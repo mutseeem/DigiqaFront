@@ -12,7 +12,7 @@ import {
   MenuIcon, MenuIconFocus,
   MenuDots, AppLogo, ArrowIcon
 } from '../../../assets/icons/icons';
-import Profile from '../../../assets/images/profile.png';
+import Profile from '../../../assets/images/Profile.png';
 import AccountMenu from './AccountMenu.jsx'; // Import the new component
 
 export default function Sidebar({ isExpanded, setIsExpanded }) {
