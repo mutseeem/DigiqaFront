@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import FirstQuestion from '../../components/temp/firstQuestion.jsx';
 import SecondQuestion from '../../components/temp/SecondQuestion.jsx';
+import FirstQuestion from "../../components/temp/firstQuestion";
 
 const ChapterPage = () => {
   return (
