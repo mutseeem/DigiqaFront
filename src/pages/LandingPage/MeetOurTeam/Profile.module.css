@@ -1,0 +1,161 @@
+/* Profile.module.css */
+.profile {
+  width: 320px;
+  margin: 0 auto 3rem;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: #f8f8f8;
+}
+
+/* PRESERVED IMAGE STYLES */
+.card {
+  background-color: #ffffffe7;
+  height: 280px;
+  width: 100%;
+  border-radius: 20px 20px 0 0;
+  position: relative;
+  overflow: visible;
+  box-shadow: none;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+}
+
+.imageContainer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.picture {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 360px;
+  height: 340px;
+  object-fit: cover;
+  object-position: center;
+  transition: filter 0.4s ease;
+  /*filter: grayscale(100%) contrast(110%);*/
+}
+
+.profile:hover .picture {
+  filter: grayscale(0%) contrast(100%);
+}
+
+/* TEXT AREA IMPROVEMENTS */
+.info {
+  background-color: #f8f8f8;
+  color: #171717;
+  padding: 1.75rem; /* Increased padding */
+  width: 100%;
+  height:80px;
+  box-sizing: border-box;
+  text-align: left;
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 0 0 20px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: none;
+}
+
+.role {
+  color: #41B8D5;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.6rem;
+}
+
+.nameAndIcons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Ensures perfect vertical alignment */
+}
+
+.name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  color: #333333;
+  line-height: 1.3; /* Better text alignment */
+  margin-bottom: 40px;
+}
+
+/* LARGER ICONS WITH PROPER ALIGNMENT */
+.socialLinks {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center; /* Perfect vertical centering */
+  margin-bottom: 20px;
+}
+
+.socialLinks a {
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 1.1rem; /* Slightly larger */
+  width: 28px; /* Fixed dimensions */
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.socialLinks a:hover {
+  color: #15F5BA;
+  transform: translateY(-2px);
+}
+
+/* Hover Effects */
+.profile:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.profile:hover .info {
+  background-color: #f8f8f8;
+}
+
+/* MeetOurTeam.module.css updates */
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+@media (max-width: 768px) {
+  .teamGrid {
+    gap: 5rem 0;
+  }
+  
+  .profile {
+    margin-bottom: 4rem;
+  }
+  
+  .name {
+    font-size: 1.15rem;
+  }
+  
+  .socialLinks a {
+    font-size: 1rem; /* Slightly smaller on mobile */
+    width: 26px;
+    height: 26px;
+  }
+}

@@ -1,0 +1,530 @@
+/* ================= ROOT VARIABLES ================= */
+:root {
+  /* ================= COLOR VARIABLES ================= */
+  /* Background Colors */
+  --sidebar-bg: #00141B; /* Main sidebar background */
+  --sidebar-bg-gradient-start: #00141B; /* Gradient start color */
+  --sidebar-bg-gradient-mid: #041c24; /* Gradient mid color */
+  --sidebar-bg-gradient-end: #00141B; /* Gradient end color */
+  --sidebar-border: #003245; /* Sidebar right border */
+  
+  /* Text Colors */
+  --text-primary: #FFFFFF; /* Primary white text */
+  --text-secondary: #f5fcff; /* Slightly off-white for secondary text */
+  --text-email: #cdf0ff; /* Light blue for email text */
+  --text-active: #ffffff; /* White text for active items */
+  
+  /* Interactive Element Colors */
+  --item-hover-bg: rgb(65, 184, 213); /* Background on hover */
+  --item-active-bg: #41b8d5; /* Background for active items */
+  --profile-border: #41b8d5; /* Profile picture border */
+  --separator-color: #ffffff7b; /* Color for separators with opacity */
+  
+  /* Effects */
+  --sidebar-shadow: rgba(0, 20, 27, 0.3); /* Shadow color */
+  --focus-glow: 0 0 0 2px rgba(81, 220, 255, 0.3); /* Focus outline glow */
+  
+  /* ================= SIZE VARIABLES ================= */
+  /* Layout Sizes */
+  --sidebar-collapsed-width: 80px; /* Collapsed state width */
+  --sidebar-expanded-width: 280px; /* Expanded state width */
+  
+  /* Spacing */
+  --header-padding: 24px 24px; /* Header padding (top/bottom left/right) */
+  --item-padding: 11px 14px; /* Padding for navigation items */
+  --item-margin: 6px 15px; /* Margin for navigation items */
+  --separator-margin: 16px 20px; /* Margin for separators */
+  --icon-spacing: 20px; /* Space between icon and text */
+  
+  /* Element Sizes */
+  --logo-size: 30px; /* App logo dimensions */
+  --icon-size: 22px; /* Standard icon dimensions */
+  --profile-size: 38px; /* Profile picture dimensions */
+  
+  /* Border Properties */
+  --item-radius: 8px; /* Border radius for items */
+  --item-hover-radius: 8px; /* Border radius on hover (can differ) */
+  --profile-border-width: 2px; /* Profile picture border width */
+  
+  /* Typography */
+  --font-size-small: 12px; /* Small text (e.g., email) */
+  --font-size-base: 0.9375rem; /* Standard text size (15px) */
+  --font-size-xlarge: 17px; /* Large text (e.g., username) */
+  --font-size-large: 1.375rem; /* Very large text (e.g., brand) */
+  
+  /* Animation */
+  --transition-speed: 0.2s cubic-bezier(0.4, 0, 0.2, 1); /* Standard transition */
+}
+
+/* ================= TOGGLE BUTTON STYLES ================= */
+/* Container for the toggle button */
+.toggleButtonContainer {
+  position: fixed;
+  top: 80px; /* Position from the top */
+  left: var(--sidebar-collapsed-width); /* Align with collapsed sidebar */
+  transform: translateX(-50%); /* Center horizontally */
+  z-index: 1001; /* Ensure it's above other elements */
+  width: 26px; /* Button size */
+  height: 26px; /* Button size */
+  transition: left var(--transition-speed); /* Smooth transition for expansion */
+  background: var(--item-active-bg); /* Active background color */
+  border-radius: 50%; /* Circular shape */
+  opacity: 0.9; /* Slightly transparent in default state */
+  box-shadow: 0 2px 4px var(--sidebar-shadow); /* Subtle shadow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Adjust position when sidebar is expanded */
+.toggleButtonContainer.expanded {
+  left: var(--sidebar-expanded-width);
+}
+
+/* Inner button element */
+.toggleButton {
+  width: 100%;
+  height: 100%;
+  background: transparent; /* Transparent background */
+  border-radius: 50%; /* Circular shape */
+  border: none; /* No border */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Hover state for the toggle button */
+.toggleButtonContainer:hover {
+  box-shadow: 0 2px 6px var(--sidebar-shadow); /* Enhanced shadow on hover */
+  opacity: 1; /* Fully visible on hover */
+}
+
+/* Icon inside the toggle button */
+.toggleIcon {
+  width: 20px; /* Icon size */
+  height: 20px; /* Icon size */
+  transition: transform var(--transition-speed); /* Smooth rotation */
+  filter: brightness(0) invert(1); /* White icon */
+}
+
+/* Rotate icon when sidebar is expanded */
+.toggleButtonContainer.expanded .toggleIcon {
+  transform: rotate(180deg); /* Rotate 180 degrees */
+}
+
+/* ================= BASE SIDEBAR STYLES ================= */
+/* Main sidebar container */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--sidebar-collapsed-width); /* Collapsed width */
+  background: linear-gradient(180deg, 
+    var(--sidebar-bg-gradient-start), 
+    var(--sidebar-bg-gradient-mid),
+    var(--sidebar-bg-gradient-end)); /* Gradient background */
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-speed); /* Smooth transitions */
+  z-index: 1000; /* Ensure it's above other elements */
+  overflow: hidden; /* Hide overflowing content */
+  border-right: 1px solid var(--sidebar-border); /* Right border */
+  -webkit-backdrop-filter: blur(10px); /* Frosted glass effect */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+}
+
+/* Reset default list styles */
+.sidebar ul {
+  list-style: none; /* Remove bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+/* Expand the sidebar */
+.sidebar.expanded {
+  width: var(--sidebar-expanded-width);
+}
+
+/* ================= HEADER STYLES ================= */
+/* Header section */
+.header {
+  display: flex;
+  align-items: center;
+  padding: var(--header-padding); /* Consistent padding */
+  position: relative;
+  transition: padding var(--transition-speed); /* Smooth transitions */
+}
+
+/* App logo */
+.appLogo {
+  width: var(--logo-size); /* Logo size */
+  height: var(--logo-size); /* Logo size */
+  object-fit: contain; /* Maintain aspect ratio */
+  transition: transform var(--transition-speed); /* Smooth rotation */
+  transform: rotate(45deg); /* Rotated logo */
+}
+
+/* Brand name */
+.brandName {
+  font-size: var(--font-size-large); /* Large font size */
+  font-weight: 600; /* Bold text */
+  color: var(--text-primary); /* Primary text color */
+  margin-left: var(--icon-spacing); /* Space between logo and text */
+  white-space: nowrap; /* Prevent wrapping */
+  display: none; /* Hidden by default */
+  transition: opacity var(--transition-speed); /* Smooth fade-in */
+  letter-spacing: 0.5px; /* Slight spacing between letters */
+}
+
+/* Show brand name when sidebar is expanded */
+.sidebar.expanded .brandName {
+  display: block; /* Visible */
+  animation: fadeIn 0.5s ease-in-out; /* Fade-in animation */
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-10px); } /* Start slightly to the left */
+  to { opacity: 1; transform: translateX(0); } /* End at normal position */
+}
+
+/* ================= ICON STYLES ================= */
+/* Container for icons */
+.iconContainer {
+  position: relative;
+  width: var(--icon-size); /* Standard icon size */
+  height: var(--icon-size); /* Standard icon size */
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Dual-icon system for hover/active states */
+.sidebarIcon,
+.sidebarIconFocus {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Maintain aspect ratio */
+  transition: all var(--transition-speed); /* Smooth transitions */
+  cursor: pointer; /* Pointer cursor on hover */
+  filter: brightness(0) invert(1); /* White icon */
+}
+
+/* Focused icon (hidden by default) */
+.sidebarIconFocus {
+  opacity: 0; /* Invisible */
+  transform: scale(0.9); /* Slightly smaller */
+}
+
+/* ================= NAVIGATION ITEMS ================= */
+/* Scrollable area for navigation items */
+.sidebarItems {
+  flex: 1; /* Take up remaining space */
+  padding: 20px 0; /* Vertical padding */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Hide horizontal overflow */
+  scrollbar-width: thin; /* Thin scrollbar */
+  scrollbar-color: var(--text-active) transparent; /* Custom scrollbar colors */
+}
+
+/* Custom scrollbar styling */
+.sidebarItems::-webkit-scrollbar {
+  width: 4px; /* Scrollbar thickness */
+}
+
+.sidebarItems::-webkit-scrollbar-thumb {
+  background-color: var(--text-active); /* Scrollbar thumb color */
+  border-radius: 2px; /* Rounded corners */
+  transition: background-color var(--transition-speed); /* Smooth color change */
+}
+
+.sidebarItems:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(65, 184, 213, 0.8); /* Highlighted thumb color */
+}
+
+/* Individual navigation item */
+.sidebarItem {
+  margin: var(--item-margin); /* Consistent spacing */
+  border-radius: var(--item-radius); /* Rounded corners */
+  transition: all var(--transition-speed); /* Smooth transitions */
+  position: relative;
+}
+
+/* Navigation link */
+.sidebarLink {
+  display: flex;
+  align-items: center;
+  padding: var(--item-padding); /* Consistent padding */
+  text-decoration: none; /* No underline */
+  color: inherit; /* Inherit text color */
+  cursor: pointer; /* Pointer cursor on hover */
+  width: 100%;
+  box-sizing: border-box; /* Include padding in width */
+  outline: none; /* Remove default focus outline */
+}
+
+/* Focus state for accessibility */
+.sidebarLink:focus-visible {
+  box-shadow: var(--focus-glow); /* Glow effect */
+}
+
+/* Navigation item text */
+.itemName {
+  margin-left: var(--icon-spacing); /* Space between icon and text */
+  font-size: var(--font-size-base); /* Standard font size */
+  color: var(--text-secondary); /* Secondary text color */
+  white-space: nowrap; /* Prevent wrapping */
+  display: none; /* Hidden by default */
+  transition: all var(--transition-speed); /* Smooth transitions */
+  font-weight: 500; /* Semi-bold text */
+}
+
+/* Show text when sidebar is expanded */
+.sidebar.expanded .itemName {
+  display: inline-block; /* Visible */
+  animation: slideIn 0.3s ease-in-out; /* Slide-in animation */
+}
+
+/* Slide-in animation */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-10px); } /* Start slightly to the left */
+  to { opacity: 1; transform: translateX(0); } /* End at normal position */
+}
+
+/* ================= INTERACTION STATES ================= */
+/* Hover state for navigation items */
+.sidebarItem:hover {
+  background: var(--item-hover-bg); /* Highlight background */
+  transform: translateX(3px); /* Slight movement */
+  box-shadow: 0 4px 12px rgba(75, 213, 248, 0.2); /* Subtle shadow */
+}
+
+/* Switch icons on hover or active state */
+.sidebarItem:hover .sidebarIcon,
+.active .sidebarIcon {
+  opacity: 0; /* Hide default icon */
+}
+
+.sidebarItem:hover .sidebarIconFocus,
+.active .sidebarIconFocus {
+  opacity: 1; /* Show focused icon */
+  transform: scale(1) rotate(0deg); /* Reset scaling and rotation */
+}
+
+/* Active item styling */
+.active {
+  background-color: var(--item-active-bg); /* Active background color */
+  border-radius: var(--item-hover-radius); /* Rounded corners */
+  position: relative;
+}
+
+.active .itemName {
+  color: var(--text-primary); /* Primary text color */
+  font-weight: 600; /* Bold text */
+}
+
+/* Disable hover effects for special cases */
+.sidebarLink.noHover:hover .sidebarIcon,
+.sidebarLink.noHover:hover .sidebarIconFocus {
+  opacity: 1; /* Keep icons visible */
+  transform: none; /* No scaling or rotation */
+}
+
+.sidebarLink.noHover:hover {
+  background-color: transparent; /* No hover background */
+}
+
+/* ================= FOOTER SECTION ================= */
+/* Account section */
+.accountSection {
+  display: flex;
+  align-items: center;
+  width: calc(100% - 40px); /* Full width minus margins */
+  padding: 2px 2px; /* Minimal padding */
+  border-radius: var(--item-radius); /* Rounded corners */
+  transition: all var(--transition-speed); /* Smooth transitions */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin: 10px auto; /* Center horizontally */
+  outline: none; /* Remove default focus outline */
+  position: relative;
+}
+
+/* Hover state for account section */
+.accountSection:hover {
+  background: var(--item-hover-bg); /* Highlight background */
+  /*transform: translateX(4px); /* Slight movement */
+  /*box-shadow: 0 4px 12px rgba(75, 213, 248, 0.2); /* Subtle shadow */
+}
+
+/* Focus state for accessibility */
+.accountSection:focus-visible {
+  box-shadow: var(--focus-glow); /* Glow effect */
+}
+
+/* Profile picture */
+.profilePicture {
+  width: var(--profile-size); /* Profile picture size */
+  height: var(--profile-size); /* Profile picture size */
+  border-radius: 50%; /* Circular shape */
+  object-fit: cover; /* Maintain aspect ratio */
+  border: var(--profile-border-width) solid var(--profile-border); /* Border */
+  transition: transform var(--transition-speed); /* Smooth transitions */
+}
+
+/* User details section */
+.userDetails {
+  display: flex;
+  flex-direction: column; /* Stack details vertically */
+  overflow: hidden; /* Hide overflowing content */
+  opacity: 0; /* Invisible by default */
+  width: 0; /* No width */
+  margin-left: 10px; /* Space between profile picture and text */
+  transition: opacity var(--transition-speed), width var(--transition-speed); /* Smooth transitions */
+}
+
+/* Show user details when sidebar is expanded */
+.sidebar.expanded .userDetails {
+  opacity: 1; /* Visible */
+  width: auto; /* Auto width */
+  animation: fadeIn 0.5s ease-in-out; /* Fade-in animation */
+}
+
+/* User name */
+.itemUserName {
+  font-size: var(--font-size-xlarge); /* Large font size */
+  font-weight: 600; /* Bold text */
+  color: var(--text-primary); /* Primary text color */
+  white-space: nowrap; /* Prevent wrapping */
+  overflow: hidden; /* Hide overflow */
+}
+
+/* User email */
+.itemEmail {
+  font-size: var(--font-size-small); /* Small font size */
+  color: var(--text-email); /* Email text color */
+  white-space: nowrap; /* Prevent wrapping */
+  overflow: hidden; /* Hide overflow */
+  letter-spacing: 0.3px; /* Slight spacing between letters */
+}
+
+/* Logout button */
+.logoutButton {
+  background: none; /* No background */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-left: auto; /* Push to the right */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Button size */
+  height: 40px; /* Button size */
+  opacity: 0; /* Invisible by default */
+  transform: scale(0.8); /* Slightly smaller */
+  transition: all var(--transition-speed); /* Smooth transitions */
+  border-radius: 50%; /* Circular shape */
+}
+
+/* Show logout button when sidebar is expanded */
+.sidebar.expanded .logoutButton {
+  opacity: 1; /* Visible */
+}
+
+/* Logout icon */
+.logoutIcon {
+  width: var(--icon-size); /* Icon size */
+  height: var(--icon-size); /* Icon size */
+  object-fit: contain; /* Maintain aspect ratio */
+  transform: rotate(180deg); /* Rotated icon */
+  filter: brightness(0) invert(1); /* White icon */
+  transition: transform var(--transition-speed); /* Smooth rotation */
+}
+
+/* Separator line */
+.separator {
+  margin: var(--separator-margin); /* Consistent spacing */
+  height: 1px; /* Line thickness */
+  background: var(--separator-color); /* Line color */
+  width: calc(100% - 40px); /* Full width minus margins */
+  border-radius: 50%; /* Rounded edges */
+  opacity: 0.3; /* Slightly transparent */
+}
+
+/* ================= HOVER TOOLTIP STYLES ================= */
+.hoverTooltip {
+  position: absolute;
+  z-index: 1100;
+  background: var(--item-active-bg);
+  color: var(--text-primary);
+  padding: 8px 12px;
+  border-radius: var(--item-radius);
+  font-size: var(--font-size-base);
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: var(--sidebar-shadow);
+  animation: fadeInTooltip 0.15s ease-out;
+  margin-top: 5px;
+  
+}
+
+@keyframes fadeInTooltip {
+  from { 
+    opacity: 0; 
+    transform: translateX(-10px);
+    /* Start 10px to the left */
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0);
+    /* End at normal position */
+  }
+}
+
+/* ================= Account Menu  ================= */
+/* Context Menu */
+.contextMenu {
+  position: absolute;
+  z-index: 1200;
+  background: var(--sidebar-bg);
+  border: 1px solid var(--sidebar-border);
+  border-radius: var(--item-radius);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+  padding: 8px 0;
+  min-width: 200px;
+  animation: fadeInUp 0.15s ease-out;
+}
+
+.contextMenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menuItem {
+  width: 100%;
+  text-align: left;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  transition: background-color var(--transition-speed);
+}
+
+.menuItem:hover {
+  background: var(--item-hover-bg);
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(-100%) translateX(0); 
+  }
+}
